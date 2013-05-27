@@ -1,0 +1,6 @@
+[submodule "sites/all/themes/dhbw_intranet"]
+	path = sites/all/themes/dhbw_intranet
+	url = git@github.com:luehrig/dhbw_intranet-theme.git
+[submodule "sites/all/modules/dhbw_orgchart"]
+	path = sites/all/modules/dhbw_orgchart
+	url = git@github.com:luehrig/dhbw_intranet-orgchart.git
