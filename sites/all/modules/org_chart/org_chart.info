@@ -1,0 +1,6 @@
+name = Org Chart
+description = Visualize Organization Hierarchy
+core = 7.x
+
+configure = admin/config/content/org_chart
+stylesheets[all][] = primitives/primitives.latest.css
