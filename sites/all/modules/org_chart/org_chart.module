@@ -50,77 +50,51 @@ function org_chart_block_view($delta = '') {
     case 'org_chart':
       $block['subject'] = t('Current posts');
       if(user_access('access content')){
-        //Use our custom function to retrieve data.
-        //$result = current_posts_contents();
-        //Array to contain items for the block to render.
-        //$items = array();
-        //Iterate over the resultset and format as links.
-        //foreach ($result as $node){
-        //  $items[] = array(
-        //    'data' => l($node->title, 'node/' . $node->nid),
-        //  ); 
-        //}
-      
-        /*if (empty($items)) { //No content in the last week.
-          $block['content'] = t('No posts available.');  
-        } 
-        else {
-          //Pass data through theme function.
-          $block['content'] = theme('item_list', array(
-            'items' => $items));
-        }*/
+        
+      	// Create element that will contain the jquery elements
         $block['content'] = '<div id="basicdiagram" style="width:640px; height:480px; border-style:dotted; border-width:1px;" />';
+        
+        // Add required js libraries
         drupal_add_js(drupal_get_path('module', 'org_chart') .'/js/jquery-1.10.0.min.js');
         drupal_add_js(drupal_get_path('module', 'org_chart') .'/jquery-ui-1.10.3/ui/jquery-ui.js');
         drupal_add_js(drupal_get_path('module', 'org_chart') .'/primitives/primitives.min.js');
-        //drupal_add_js(drupal_get_path('module', 'org_chart') .'/js/test.js');
-        //drupal_add_js('jQuery(document).ready(function(){test()});', 'inline');
-        
-        //Use Database API to retrieve root node
-        $query = db_select('org', 'n')
-          ->fields('n', array('oid', 'name', 'descr'))          
-          ->condition('parent', NULL, 'IS')          
-          ->execute();
-        
-        foreach($query as $node){
+                
+        // Set vid for vocabulary "Geschäftsbereich"
+        $vid = 4;        
+        // Get top level element by vid
+        $terms = taxonomy_get_tree($vid,0,1);
+         
+        foreach($terms as $term){
         $hierarchy_js  = "function build_org_chart(){ ";
-        $hierarchy_js .= "var options = new primitives.orgdiagram.Config(); ";
+        $hierarchy_js .= "var options = new primitives.orgdiagram.Config(); ";         
+        $hierarchy_js .= add_node($vid, $term->tid, $term->name, $term->description, NULL);
         
-        //$hierarchy_js .= "var rootItem = new primitives.orgdiagram.ItemConfig(); ";
-        //$hierarchy_js .= "rootItem.title = \"".$node->name."\"; ";
-        //$hierarchy_js .= "rootItem.description = \"".$node->descr."\"; ";
-        //$hierarchy_js .= "rootItem.image = \"http://www.basicprimitives.com/demo/images/photos/a.png\"; ";
-        
-        $hierarchy_js .= add_node($node->oid,$node->name,$node->descr,NULL);
-        
-        $hierarchy_js .= "options.rootItem = node".$node->oid."; ";
-        $hierarchy_js .= "options.cursorItem = node".$node->oid."; ";
+        $hierarchy_js .= "options.rootItem = node".$term->tid."; ";
+        $hierarchy_js .= "options.cursorItem = node".$term->tid."; ";
         $hierarchy_js .= "options.hasSelectorCheckbox = primitives.common.Enabled.False; ";
         $hierarchy_js .= "jQuery(\"#basicdiagram\").orgDiagram(options); }";
         }
         drupal_add_js($hierarchy_js, 'inline');
         drupal_add_js('jQuery(document).ready(function(){build_org_chart()});', 'inline');
+        
       }
     return $block;
   }
   
 }
 
-function add_node($nodeId, $nodeName, $nodeDescr, $parentName){
+function add_node($vid, $tid, $name, $descr, $parentName){
     
-    $parent_js  = "var node".$nodeId." = new primitives.orgdiagram.ItemConfig(); ";
-    $parent_js .= "node".$nodeId.".title = \"".$nodeName."\"; ";
-    $parent_js .= "node".$nodeId.".description = \"".$nodeDescr."\"; ";
+    $parent_js  = "var node".$tid." = new primitives.orgdiagram.ItemConfig(); ";
+    $parent_js .= "node".$tid.".title = \"".$name."\"; ";
+    $parent_js .= "node".$tid.".description = \"".$descr."\"; ";
     
     if($parentName!=NULL){
-        $parent_js .= $parentName.".items.push(node".$nodeId."); ";
+        $parent_js .= $parentName.".items.push(node".$tid."); ";
     }
-    $children = db_select('org', 'n')
-          ->fields('n', array('oid', 'name', 'descr'))          
-          ->condition('parent', $nodeId, '=')          
-          ->execute();
+    $children = taxonomy_get_children($tid, $vid);
     foreach($children as $node){
-        $parent_js .= add_node($node->oid,$node->name,$node->descr,"node".$nodeId);
+        $parent_js .= add_node($vid, $node->tid,$node->name,$node->description,"node".$tid);
     }
     return $parent_js;
 }
