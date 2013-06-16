@@ -74,17 +74,24 @@
     <nav id="main-menu"  role="navigation">
       <a class="nav-toggle" href="#"><?php print t("Navigation"); ?></a>
       <div class="menu-navigation-container">
-        <?php
-        if (module_exists('i18n_menu')) {
-          $main_menu_tree = i18n_menu_translated_tree(variable_get('menu_main_links_source', 'main-menu'));
-        } else {
-          $main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu'));
-        }
-                /* Disable Main menu if unchecked */
-                if ($main_menu == TRUE):
-                        print drupal_render($main_menu_tree);
-                endif;
-        ?>
+
+
+      <?php global $user; ?>
+      <?php if ($user->uid != 0) : ?>
+      <!-- Show main menu if user is logged in -->
+         <?php
+         if (module_exists('i18n_menu')) {
+           $main_menu_tree = i18n_menu_translated_tree(variable_get('menu_main_links_source', 'main-menu'));
+         } else {
+           $main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu'));
+         }
+                 /* Disable Main menu if unchecked */
+                 if ($main_menu == TRUE):
+                         print drupal_render($main_menu_tree);
+                 endif;
+         ?>
+       <?php endif; ?>
+
       </div>
       <div class="clear"></div>
     </nav><!-- end main-menu -->
@@ -96,98 +103,103 @@
                 <?php if ($is_front): ?>
                         <?php if (theme_get_setting('slideshow_display', 'professional_theme')): ?>
         <!-- Slides -->
-  <?php
-  $slide1_head = check_plain(theme_get_setting('slide1_head','professional_theme'));
-  $slide1_desc = check_markup(theme_get_setting('slide1_desc','professional_theme'),'full_html');
-  $slide1_url = check_plain(theme_get_setting('slide1_url','professional_theme'));
-  $slide1_img= check_markup(theme_get_setting('slide1_image_url','professional_theme'));
-  $slide_alt = check_plain(theme_get_setting('slide_alt','professional_theme'));
 
-  $slide2_head = check_plain(theme_get_setting('slide2_head','professional_theme'));
-  $slide2_desc = check_markup(theme_get_setting('slide2_desc','professional_theme'), 'full_html');
-  $slide2_url = check_plain(theme_get_setting('slide2_url','professional_theme'));
-  $slide2_img= check_markup(theme_get_setting('slide2_image_url','professional_theme'));
-  $slide2_alt= check_plain(theme_get_setting('slide2_alt','professional_theme'));
+   <?php if ($user->uid != 0) : ?>
+   <!--display slideshow if user is logged in-->
 
-  $slide3_head = check_plain(theme_get_setting('slide3_head','professional_theme'));
-  $slide3_desc = check_markup(theme_get_setting('slide3_desc','professional_theme'), 'full_html');
-  $slide3_url = check_plain(theme_get_setting('slide3_url','professional_theme'));
-  $slide3_img= check_markup(theme_get_setting('slide3_image_url','professional_theme'));
-  $slide3_alt= check_plain(theme_get_setting('slide3_alt','professional_theme'));
+           <?php
+           $slide1_head = check_plain(theme_get_setting('slide1_head','professional_theme'));
+           $slide1_desc = check_markup(theme_get_setting('slide1_desc','professional_theme'),'full_html');
+           $slide1_url = check_plain(theme_get_setting('slide1_url','professional_theme'));
+           $slide1_img= check_markup(theme_get_setting('slide1_image_url','professional_theme'));
+           $slide_alt = check_plain(theme_get_setting('slide_alt','professional_theme'));
 
-/*default values in case the alt text is not populated *****/
-   if($slide_alt  == "") {$slide_alt  = "slider image 1";}
-   if($slide2_alt == "") {$slide2_alt = "slider image 2";}
-   if($slide3_alt == "") {$slide3_alt = "slider image 3";}
-/*default values in case the alt text is not populated *****/
-?>
-    <section id="slider">
-    <ul class="slides">
-      <li>
-        <article class="post">
-        <div class="entry-container">
-          <header class="entry-header">
-            <h2 class="entry-title"><a href="<?php print url($slide1_url); ?>"><?php print $slide1_head; ?></a></h2>
-          </header><!-- .entry-header -->
-          <div class="entry-summary">
-                <?php print $slide1_desc; ?>
-          </div><!-- .entry-summary -->
-          <div class="clear"></div>
-        </div><!-- .entry-container -->
-            <a href="<?php print url($slide1_url); ?>">
-            <?php if($slide1_img != '') { ?>
-            <img src="<?php print $slide1_img; ?>" class="slide-image" alt="<?php print $slide_alt; ?>" /> </a>
-            <?php } else { ?>
-            <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-1.jpg'; ?>" class="slide-image" alt="<?php print $slide_alt; ?>" /></a>
-        <?php } ?>
-        <div class="clear"></div>
-        </article>
-      </li>
+           $slide2_head = check_plain(theme_get_setting('slide2_head','professional_theme'));
+           $slide2_desc = check_markup(theme_get_setting('slide2_desc','professional_theme'), 'full_html');
+           $slide2_url = check_plain(theme_get_setting('slide2_url','professional_theme'));
+           $slide2_img= check_markup(theme_get_setting('slide2_image_url','professional_theme'));
+           $slide2_alt= check_plain(theme_get_setting('slide2_alt','professional_theme'));
 
-      <li>
-        <article class="post">
-        <div class="entry-container">
-          <header class="entry-header">
-            <h2 class="entry-title"><a href="<?php print url($slide2_url); ?>"><?php print $slide2_head; ?></a></h2>
-          </header><!-- .entry-header -->
-          <div class="entry-summary">
-                <?php print $slide2_desc; ?>
-          </div><!-- .entry-summary -->
-          <div class="clear"></div>
-        </div><!-- .entry-container -->
-            <a href="<?php print url($slide2_url); ?>">
-                <?php if($slide2_img != '') { ?>
-                    <img src="<?php print $slide2_img; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>" /> </a>
-                <?php } else { ?>
-            <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-2.jpg'; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>"  /></a>
-                <?php } ?>
-        <div class="clear"></div>
-        </article>
-      </li>
+           $slide3_head = check_plain(theme_get_setting('slide3_head','professional_theme'));
+           $slide3_desc = check_markup(theme_get_setting('slide3_desc','professional_theme'), 'full_html');
+           $slide3_url = check_plain(theme_get_setting('slide3_url','professional_theme'));
+           $slide3_img= check_markup(theme_get_setting('slide3_image_url','professional_theme'));
+           $slide3_alt= check_plain(theme_get_setting('slide3_alt','professional_theme'));
 
-      <li>
-        <article class="post">
-        <div class="entry-container">
-          <header class="entry-header">
-            <h2 class="entry-title"><a href="<?php print url($slide3_url); ?>"><?php print $slide3_head; ?></a></h2>
-          </header><!-- .entry-header -->
-          <div class="entry-summary">
-                <?php print $slide3_desc; ?>
-          </div><!-- .entry-summary -->
-          <div class="clear"></div>
-        </div><!-- .entry-container -->
-            <a href="<?php print url($slide3_url); ?>">
-                <?php if($slide3_img != '') { ?>
-            <img src="<?php print $slide3_img; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /> </a>
-                <?php } else { ?>
-            <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-3.jpg'; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /></a>
-                <?php } ?>
-         <div class="clear"></div>
-        </article>
-      </li>
-    </ul>
-    </section>
-       <?php endif; ?>
+         /*default values in case the alt text is not populated *****/
+            if($slide_alt  == "") {$slide_alt  = "slider image 1";}
+            if($slide2_alt == "") {$slide2_alt = "slider image 2";}
+            if($slide3_alt == "") {$slide3_alt = "slider image 3";}
+         /*default values in case the alt text is not populated *****/
+         ?>
+             <section id="slider">
+             <ul class="slides">
+               <li>
+                 <article class="post">
+                 <div class="entry-container">
+                   <header class="entry-header">
+                     <h2 class="entry-title"><a href="<?php print url($slide1_url); ?>"><?php print $slide1_head; ?></a></h2>
+                   </header><!-- .entry-header -->
+                   <div class="entry-summary">
+                         <?php print $slide1_desc; ?>
+                   </div><!-- .entry-summary -->
+                   <div class="clear"></div>
+                 </div><!-- .entry-container -->
+                     <a href="<?php print url($slide1_url); ?>">
+                     <?php if($slide1_img != '') { ?>
+                     <img src="<?php print $slide1_img; ?>" class="slide-image" alt="<?php print $slide_alt; ?>" /> </a>
+                     <?php } else { ?>
+                     <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-1.jpg'; ?>" class="slide-image" alt="<?php print $slide_alt; ?>" /></a>
+                 <?php } ?>
+                 <div class="clear"></div>
+                 </article>
+               </li>
+
+               <li>
+                 <article class="post">
+                 <div class="entry-container">
+                   <header class="entry-header">
+                     <h2 class="entry-title"><a href="<?php print url($slide2_url); ?>"><?php print $slide2_head; ?></a></h2>
+                   </header><!-- .entry-header -->
+                   <div class="entry-summary">
+                         <?php print $slide2_desc; ?>
+                   </div><!-- .entry-summary -->
+                   <div class="clear"></div>
+                 </div><!-- .entry-container -->
+                     <a href="<?php print url($slide2_url); ?>">
+                         <?php if($slide2_img != '') { ?>
+                             <img src="<?php print $slide2_img; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>" /> </a>
+                         <?php } else { ?>
+                     <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-2.jpg'; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>"  /></a>
+                         <?php } ?>
+                 <div class="clear"></div>
+                 </article>
+               </li>
+
+               <li>
+                 <article class="post">
+                 <div class="entry-container">
+                   <header class="entry-header">
+                     <h2 class="entry-title"><a href="<?php print url($slide3_url); ?>"><?php print $slide3_head; ?></a></h2>
+                   </header><!-- .entry-header -->
+                   <div class="entry-summary">
+                         <?php print $slide3_desc; ?>
+                   </div><!-- .entry-summary -->
+                   <div class="clear"></div>
+                 </div><!-- .entry-container -->
+                     <a href="<?php print url($slide3_url); ?>">
+                         <?php if($slide3_img != '') { ?>
+                     <img src="<?php print $slide3_img; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /> </a>
+                         <?php } else { ?>
+                     <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-3.jpg'; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /></a>
+                         <?php } ?>
+                  <div class="clear"></div>
+                 </article>
+               </li>
+             </ul>
+             </section>
+                <?php endif; ?>
+             <?php endif; ?>
     <?php endif; ?>
 
 
@@ -200,20 +212,23 @@
 
     <div class="content-sidebar-wrap">
 
-    <div id="content">
-      <?php if (theme_get_setting('breadcrumbs', 'professional_theme')): ?><div id="breadcrumbs"><?php if ($breadcrumb): print $breadcrumb; endif;?></div><?php endif; ?>
-      <section id="post-content" role="main">
-        <?php print $messages; ?>
-        <?php if ($page['content_top']): ?><div id="content_top"><?php print render($page['content_top']); ?></div><?php endif; ?>
-        <?php print render($title_prefix); ?>
-        <?php if ($title): ?><h1 class="page-title"><?php print $title; ?></h1><?php endif; ?>
-        <?php print render($title_suffix); ?>
-        <?php if (!empty($tabs['#primary'])): ?><div class="tabs-wrapper"><?php print render($tabs); ?></div><?php endif; ?>
-        <?php print render($page['help']); ?>
-        <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-        <?php print render($page['content']); ?>
-      </section> <!-- /#main -->
-    </div>
+
+    <?php if ($user->uid != 0) : ?>
+           <div id="content">
+             <?php if (theme_get_setting('breadcrumbs', 'professional_theme')): ?><div id="breadcrumbs"><?php if ($breadcrumb): print $breadcrumb; endif;?></div><?php endif; ?>
+             <section id="post-content" role="main">
+               <?php print $messages; ?>
+               <?php if ($page['content_top']): ?><div id="content_top"><?php print render($page['content_top']); ?></div><?php endif; ?>
+               <?php print render($title_prefix); ?>
+               <?php if ($title): ?><h1 class="page-title"><?php print $title; ?></h1><?php endif; ?>
+               <?php print render($title_suffix); ?>
+               <?php if (!empty($tabs['#primary'])): ?><div class="tabs-wrapper"><?php print render($tabs); ?></div><?php endif; ?>
+               <?php print render($page['help']); ?>
+               <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
+               <?php print render($page['content']); ?>
+             </section> <!-- /#main -->
+           </div>
+    <?php endif; ?>
 
     <?php if ($page['sidebar_first']): ?>
       <aside id="sidebar-first" role="complementary">
