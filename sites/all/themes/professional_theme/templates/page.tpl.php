@@ -74,45 +74,45 @@
     <nav id="main-menu"  role="navigation">
       <a class="nav-toggle" href="#"><?php print t("Navigation"); ?></a>
       <div class="menu-navigation-container">
-        <?php 
+        <?php
         if (module_exists('i18n_menu')) {
           $main_menu_tree = i18n_menu_translated_tree(variable_get('menu_main_links_source', 'main-menu'));
         } else {
           $main_menu_tree = menu_tree(variable_get('menu_main_links_source', 'main-menu'));
         }
-		/* Disable Main menu if unchecked */
-		if ($main_menu == TRUE):
-			print drupal_render($main_menu_tree);
-		endif;
+                /* Disable Main menu if unchecked */
+                if ($main_menu == TRUE):
+                        print drupal_render($main_menu_tree);
+                endif;
         ?>
       </div>
       <div class="clear"></div>
     </nav><!-- end main-menu -->
   </header>
 
-  
+
   <div id="container">
 
-		<?php if ($is_front): ?>
-			<?php if (theme_get_setting('slideshow_display', 'professional_theme')): ?>
+                <?php if ($is_front): ?>
+                        <?php if (theme_get_setting('slideshow_display', 'professional_theme')): ?>
         <!-- Slides -->
   <?php
-  $slide1_head = check_plain(theme_get_setting('slide1_head','professional_theme'));   
-  $slide1_desc = check_markup(theme_get_setting('slide1_desc','professional_theme'),'full_html'); 
-  $slide1_url = check_plain(theme_get_setting('slide1_url','professional_theme')); 
-  $slide1_img= check_markup(theme_get_setting('slide1_image_url','professional_theme')); 
+  $slide1_head = check_plain(theme_get_setting('slide1_head','professional_theme'));
+  $slide1_desc = check_markup(theme_get_setting('slide1_desc','professional_theme'),'full_html');
+  $slide1_url = check_plain(theme_get_setting('slide1_url','professional_theme'));
+  $slide1_img= check_markup(theme_get_setting('slide1_image_url','professional_theme'));
   $slide_alt = check_plain(theme_get_setting('slide_alt','professional_theme'));
-  
-  $slide2_head = check_plain(theme_get_setting('slide2_head','professional_theme'));   
-  $slide2_desc = check_markup(theme_get_setting('slide2_desc','professional_theme'), 'full_html'); 
-  $slide2_url = check_plain(theme_get_setting('slide2_url','professional_theme')); 
-  $slide2_img= check_markup(theme_get_setting('slide2_image_url','professional_theme')); 
+
+  $slide2_head = check_plain(theme_get_setting('slide2_head','professional_theme'));
+  $slide2_desc = check_markup(theme_get_setting('slide2_desc','professional_theme'), 'full_html');
+  $slide2_url = check_plain(theme_get_setting('slide2_url','professional_theme'));
+  $slide2_img= check_markup(theme_get_setting('slide2_image_url','professional_theme'));
   $slide2_alt= check_plain(theme_get_setting('slide2_alt','professional_theme'));
-  
-  $slide3_head = check_plain(theme_get_setting('slide3_head','professional_theme'));   
-  $slide3_desc = check_markup(theme_get_setting('slide3_desc','professional_theme'), 'full_html'); 
-  $slide3_url = check_plain(theme_get_setting('slide3_url','professional_theme')); 
-  $slide3_img= check_markup(theme_get_setting('slide3_image_url','professional_theme')); 
+
+  $slide3_head = check_plain(theme_get_setting('slide3_head','professional_theme'));
+  $slide3_desc = check_markup(theme_get_setting('slide3_desc','professional_theme'), 'full_html');
+  $slide3_url = check_plain(theme_get_setting('slide3_url','professional_theme'));
+  $slide3_img= check_markup(theme_get_setting('slide3_image_url','professional_theme'));
   $slide3_alt= check_plain(theme_get_setting('slide3_alt','professional_theme'));
 
 /*default values in case the alt text is not populated *****/
@@ -135,15 +135,15 @@
           <div class="clear"></div>
         </div><!-- .entry-container -->
             <a href="<?php print url($slide1_url); ?>">
-	    <?php if($slide1_img != '') { ?>
+            <?php if($slide1_img != '') { ?>
             <img src="<?php print $slide1_img; ?>" class="slide-image" alt="<?php print $slide_alt; ?>" /> </a>
             <?php } else { ?>
             <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-1.jpg'; ?>" class="slide-image" alt="<?php print $slide_alt; ?>" /></a>
-        <?php } ?> 
-	<div class="clear"></div>
+        <?php } ?>
+        <div class="clear"></div>
         </article>
       </li>
-      
+
       <li>
         <article class="post">
         <div class="entry-container">
@@ -156,15 +156,15 @@
           <div class="clear"></div>
         </div><!-- .entry-container -->
             <a href="<?php print url($slide2_url); ?>">
-		<?php if($slide2_img != '') { ?>
-            	<img src="<?php print $slide2_img; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>" /> </a>
-		<?php } else { ?>
+                <?php if($slide2_img != '') { ?>
+                    <img src="<?php print $slide2_img; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>" /> </a>
+                <?php } else { ?>
             <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-2.jpg'; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>"  /></a>
-        	<?php } ?> 
-	<div class="clear"></div>
+                <?php } ?>
+        <div class="clear"></div>
         </article>
       </li>
-      
+
       <li>
         <article class="post">
         <div class="entry-container">
@@ -177,11 +177,11 @@
           <div class="clear"></div>
         </div><!-- .entry-container -->
             <a href="<?php print url($slide3_url); ?>">
-		<?php if($slide3_img != '') { ?>
+                <?php if($slide3_img != '') { ?>
             <img src="<?php print $slide3_img; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /> </a>
-		<?php } else { ?>
+                <?php } else { ?>
             <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-3.jpg'; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /></a>
-		<?php } ?>
+                <?php } ?>
          <div class="clear"></div>
         </article>
       </li>
@@ -189,8 +189,8 @@
     </section>
        <?php endif; ?>
     <?php endif; ?>
-  
-  
+
+
    <?php if ($page['header']): ?>
    <div id="head">
     <?php print render($page['header']); ?>
@@ -214,13 +214,13 @@
         <?php print render($page['content']); ?>
       </section> <!-- /#main -->
     </div>
-  
+
     <?php if ($page['sidebar_first']): ?>
       <aside id="sidebar-first" role="complementary">
         <?php print render($page['sidebar_first']); ?>
       </aside>  <!-- /#sidebar-first -->
     <?php endif; ?>
-  
+
     </div>
 
     <?php if ($page['sidebar_second']): ?>
@@ -228,20 +228,20 @@
         <?php print render($page['sidebar_second']); ?>
       </aside>  <!-- /#sidebar-first -->
     <?php endif; ?>
-  
+
   <div class="clear"></div>
-   
+
   <?php if ($page['footer']): ?>
    <div id="foot">
      <?php print render($page['footer']) ?>
    </div>
    <?php endif; ?>
-  </div> 
-  
+  </div>
 
-   
+
+
   <div id="footer">
-    <?php if ($page['footer_first'] || $page['footer_second'] || $page['footer_third']): ?> 
+    <?php if ($page['footer_first'] || $page['footer_second'] || $page['footer_third']): ?>
       <div id="footer-area" class="clearfix">
         <?php if ($page['footer_first']): ?>
         <div class="column"><?php print render($page['footer_first']); ?></div>
@@ -254,15 +254,15 @@
         <?php endif; ?>
       </div>
     <?php endif; ?>
-      
+
     <div id="copyright">
     <!--Remove  -->
      <?php if(!theme_get_setting('remove_copywrite','professional_theme')) {?>
-     	<p class="copyright"><?php print t('Copyright'); ?> &copy; <?php echo date("Y"); ?>, <?php print theme_get_setting('copywrite_holder','professional_theme') ?></p>
+             <p class="copyright"><?php print t('Copyright'); ?> &copy; <?php echo date("Y"); ?>, <?php print theme_get_setting('copywrite_holder','professional_theme') ?></p>
      <?php } ?>
      <!--Remove Theme Credit by Setting -->
-     <?php if(!theme_get_setting('display_theme_credit','professional_theme')) {?>  
-     		<p class="credits"> <?php print t('Theme Originally Created by'); ?>  <a href="http://www.devsaran.com">Devsaran</a></p>
+     <?php if(!theme_get_setting('display_theme_credit','professional_theme')) {?>
+                     <p class="credits"> <?php print t('Theme Originally Created by'); ?>  <a href="http://www.devsaran.com">Devsaran</a></p>
      <?php } ?>
     <div class="clear"></div>
     </div>
