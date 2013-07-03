@@ -348,7 +348,7 @@ audio {
 
 #logo {
   float:left;
-  margin:10px;
+  margin:5px 30px;
   padding-top: 10px;
 }
 
@@ -360,7 +360,7 @@ audio {
 #site-title,
 #site-description {
   float:left;
-  line-height:100px;
+  line-height:30px;
 }
 
 #site-title {
@@ -370,9 +370,11 @@ audio {
 }
 
 #site-description {
-  margin-left:20px;
-  font-size:12px;
+  margin-left:50px;
+  font-size:14px;
   font-weight:normal;
+  font-family: verdana,arial,helvetica,sans-serif;
+  margin-top: 45px;
 }
 
 #main-menu {
