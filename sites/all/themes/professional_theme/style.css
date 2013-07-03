@@ -639,9 +639,11 @@ audio {
 #slider .entry-container {
   float:right;
   max-width:50%;
+  height: 250px;
 }
 
 #slider .slide-image {
+        height: 250px;
         max-width:49%;
         padding:0.47%;
         background:#E9E9E9;

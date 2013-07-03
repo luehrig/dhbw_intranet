@@ -108,23 +108,128 @@
    <!--display slideshow if user is logged in-->
 
            <?php
-           $slide1_head = check_plain(theme_get_setting('slide1_head','professional_theme'));
-           $slide1_desc = check_markup(theme_get_setting('slide1_desc','professional_theme'),'full_html');
-           $slide1_url = check_plain(theme_get_setting('slide1_url','professional_theme'));
-           $slide1_img= check_markup(theme_get_setting('slide1_image_url','professional_theme'));
-           $slide_alt = check_plain(theme_get_setting('slide_alt','professional_theme'));
+           // Get the 3 latest news from db table NODE
+           $db_query = db_select('node', 'n');
+           $db_query->fields('n',array('nid','type','title','created'))//SELECT the fields from node
+    			->condition('type', 'news', '=')
+    			->orderBy('created', 'DESC')//ORDER BY created
+    			->range(0,3);//LIMIT to 3 records        
+           $db_result = $db_query->execute();
+           
+           $record1 = $db_result->fetchAssoc();
+           $record2 = $db_result->fetchAssoc();
+           $record3 = $db_result->fetchAssoc();
+           		
+           $slide1_head = $record1['title'];
+           $slide2_head = $record2['title'];
+           $slide3_head = $record3['title'];
 
-           $slide2_head = check_plain(theme_get_setting('slide2_head','professional_theme'));
-           $slide2_desc = check_markup(theme_get_setting('slide2_desc','professional_theme'), 'full_html');
-           $slide2_url = check_plain(theme_get_setting('slide2_url','professional_theme'));
-           $slide2_img= check_markup(theme_get_setting('slide2_image_url','professional_theme'));
-           $slide2_alt= check_plain(theme_get_setting('slide2_alt','professional_theme'));
+           
+           // Get the body of selected news from db table FIELD_DATA_BODY
+           
+           $db_query = db_select('field_data_body', 'f');
+           $db_query->fields('f',array('entity_id', 'body_value'))//SELECT the fields from field_data_body
+            ->condition('entity_id', array($record1['nid']), '=');
+           $db_result = $db_query->execute();
+           $record1 = $db_result->fetchAssoc();
+           $slide1_desc = $record1['body_value'];
+           
+           $db_query = db_select('field_data_body', 'f');
+           $db_query->fields('f',array('entity_id', 'body_value'))//SELECT the fields from field_data_body
+           ->condition('entity_id', array($record2['nid']), '=');
+           $db_result = $db_query->execute();
+           $record2 = $db_result->fetchAssoc();
+           $slide2_desc = $record2['body_value'];
+           
+           $db_query = db_select('field_data_body', 'f');
+           $db_query->fields('f',array('entity_id', 'body_value'))//SELECT the fields from field_data_body
+           ->condition('entity_id', array($record3['nid']), '=');
+           $db_result = $db_query->execute();
+           $record3 = $db_result->fetchAssoc();
+           $slide3_desc = $record3['body_value'];
+           
+           
+           // get pictures of selected news
+       	
+           $db_query = db_select('field_data_field_image', 'f');
+           $db_query->fields('f',array('entity_id', 'field_image_fid'))//SELECT the fields from field_data_field_image
+           ->condition('entity_id', array($record1['entity_id']), '=');
+           $db_result = $db_query->execute();
+           $record1 = $db_result->fetchAssoc();
+           
+           $db_query = db_select('file_managed', 'f');
+           $db_query->fields('f',array('fid', 'filename', 'uri', ))
+           ->condition('fid', array($record1['field_image_fid']), '=');
+           $db_result = $db_query->execute();
+           $record1 = $db_result->fetchAssoc();
+           $record1['filename'];
+           	if($record1['filename']!=''){
+           		$slide1_img = base_path().'sites/default/files/'.$record1['filename'];
+			}	       
+			else{
+				$slide1_img = '';	
+			}
+			
+			// get pictures of selected news
+			
+			$db_query = db_select('field_data_field_image', 'f');
+			$db_query->fields('f',array('entity_id', 'field_image_fid'))//SELECT the fields from field_data_field_image
+			->condition('entity_id', array($record2['entity_id']), '=');
+			$db_result = $db_query->execute();
+			$record2 = $db_result->fetchAssoc();
+		
+			$db_query = db_select('file_managed', 'f');
+			$db_query->fields('f',array('fid', 'filename', 'uri', ))
+			->condition('fid', array($record2['field_image_fid']), '=');
+			$db_result = $db_query->execute();
+			$record2 = $db_result->fetchAssoc();
+			
+			if($record2['filename']!=''){
+				$slide2_img = base_path().'sites/default/files/'.$record2['filename'];
+			}
+			else{
+				$slide2_img = '';
+			}
+			
+			// get pictures of selected news
+	
+			$db_query = db_select('field_data_field_image', 'f');
+			$db_query->fields('f',array('entity_id', 'field_image_fid'))//SELECT the fields from field_data_field_image
+			->condition('entity_id', array($record3['entity_id']), '=');
+			$db_result = $db_query->execute();
+			$record3 = $db_result->fetchAssoc();
+	
+			$db_query = db_select('file_managed', 'f');
+			$db_query->fields('f',array('fid', 'filename', 'uri', ))
+			->condition('fid', array($record3['field_image_fid']), '=');
+			$db_result = $db_query->execute();
+			$record3 = $db_result->fetchAssoc();
+		
+			if($record3['filename']!=''){
+				$slide3_img = base_path().'sites/default/files/'.$record3['filename'];
+			}
+			else{
+				$slide3_img = '';
+			}
+           
 
-           $slide3_head = check_plain(theme_get_setting('slide3_head','professional_theme'));
-           $slide3_desc = check_markup(theme_get_setting('slide3_desc','professional_theme'), 'full_html');
-           $slide3_url = check_plain(theme_get_setting('slide3_url','professional_theme'));
-           $slide3_img= check_markup(theme_get_setting('slide3_image_url','professional_theme'));
-           $slide3_alt= check_plain(theme_get_setting('slide3_alt','professional_theme'));
+//            $slide1_head = check_plain(theme_get_setting('slide1_head','professional_theme'));
+//            $slide1_desc = check_markup(theme_get_setting('slide1_desc','professional_theme'),'full_html');
+//            $slide1_url = check_plain(theme_get_setting('slide1_url','professional_theme'));
+//            $slide1_img= check_markup(theme_get_setting('slide1_image_url','professional_theme'));
+//            $slide_alt = check_plain(theme_get_setting('slide_alt','professional_theme'));
+
+//            $slide2_head = check_plain(theme_get_setting('slide2_head','professional_theme'));
+//            $slide2_desc = check_markup(theme_get_setting('slide2_desc','professional_theme'), 'full_html');
+//            $slide2_url = check_plain(theme_get_setting('slide2_url','professional_theme'));
+//            $slide2_img= check_markup(theme_get_setting('slide2_image_url','professional_theme'));
+//            $slide2_alt= check_plain(theme_get_setting('slide2_alt','professional_theme'));
+
+//            $slide3_head = check_plain(theme_get_setting('slide3_head','professional_theme'));
+//            $slide3_desc = check_markup(theme_get_setting('slide3_desc','professional_theme'), 'full_html');
+//            $slide3_url = check_plain(theme_get_setting('slide3_url','professional_theme'));
+//            $slide3_img= check_markup(theme_get_setting('slide3_image_url','professional_theme'));
+//            $slide3_alt= check_plain(theme_get_setting('slide3_alt','professional_theme'));
 
          /*default values in case the alt text is not populated *****/
             if($slide_alt  == "") {$slide_alt  = "slider image 1";}
@@ -155,6 +260,7 @@
                  </article>
                </li>
 
+               
                <li>
                  <article class="post">
                  <div class="entry-container">
@@ -170,7 +276,7 @@
                          <?php if($slide2_img != '') { ?>
                              <img src="<?php print $slide2_img; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>" /> </a>
                          <?php } else { ?>
-                     <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-2.jpg'; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>"  /></a>
+                     <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-1.jpg'; ?>" class="slide-image" alt="<?php print $slide2_alt; ?>"  /></a>
                          <?php } ?>
                  <div class="clear"></div>
                  </article>
@@ -191,13 +297,15 @@
                          <?php if($slide3_img != '') { ?>
                      <img src="<?php print $slide3_img; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /> </a>
                          <?php } else { ?>
-                     <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-3.jpg'; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /></a>
+                     <img src="<?php print base_path() . drupal_get_path('theme', 'professional_theme') . '/images/slide-image-1.jpg'; ?>" class="slide-image" alt="<?php print $slide3_alt; ?>" /></a>
                          <?php } ?>
                   <div class="clear"></div>
                  </article>
                </li>
              </ul>
              </section>
+             
+             
                 <?php endif; ?>
              <?php endif; ?>
     <?php endif; ?>
