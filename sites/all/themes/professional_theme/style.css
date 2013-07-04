@@ -917,13 +917,13 @@ ul.primary li a {
 }
 
 ul.primary li a:hover, ul.primary li a.active {
-  background: #666;
+  background: #228B22;
   border: none;
   color: #fff;
 }
 
 ul.primary li a:hover {
-  background: #888;
+  background: #8CC63E;
   text-decoration: none;
 }
 
