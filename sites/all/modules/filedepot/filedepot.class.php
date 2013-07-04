@@ -42,6 +42,7 @@ class filedepot
   public $listingpadding         = 20; // Number of px to indent filelisting per folder level
   public $filedescriptionOffset  = 50;
   public $shortdate              = '%x';
+  public $germanFormat			 = '%d.%m.%Y';
   public $activeview             = ''; // Active filtered view
   public $cid                    = 0; // Active folder
   public $selectedTopLevelFolder = 0;

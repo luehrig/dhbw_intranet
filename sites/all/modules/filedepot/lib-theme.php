@@ -327,7 +327,7 @@ function template_preprocess_filedepot_filelisting(&$variables) {
   $variables['file_name'] = filter_xss($rec['title']);
 
   if (isset($rec['date']) AND $rec['date'] > 0) {
-    $variables['modified_date'] = strftime($filedepot->shortdate, $rec['date']);
+    $variables['modified_date'] = strftime($filedepot->germanFormat, $rec['date']);
   }
   else {
     $variables['modified_date'] = '';
