@@ -1,6 +1,0 @@
-name = Employee Chart
-description = Visualize Employee Hierarchy
-core = 7.x
-
-configure = admin/config/content/empl_chart
-stylesheets[all][] = primitives/primitives.latest.css
