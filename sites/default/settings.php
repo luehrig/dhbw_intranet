@@ -215,10 +215,10 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'db9241x1878858',
-      'username' => 's9241_1878858',
-      'password' => 'dhbw_juvente',
-      'host' => 'mysql12.1blu.de',
+      'database' => 'dhbw_intranet',
+      'username' => 'dhbw_intranet',
+      'password' => 'dhbw_intranet',
+      'host' => 'localhost',
       'port' => '',
       'driver' => 'mysql',
       'prefix' => '',
