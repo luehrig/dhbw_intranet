@@ -215,10 +215,10 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'dhbw_intranet',
-      'username' => 'dhbw_intranet',
-      'password' => 'dhbw_intranet',
-      'host' => 'localhost',
+      'database' => 'db9241x1878858',
+      'username' => 's9241_1878858',
+      'password' => 'dhbw_juvente',
+      'host' => 'mysql12.1blu.de',
       'port' => '',
       'driver' => 'mysql',
       'prefix' => '',
@@ -256,7 +256,7 @@ $update_free_access = FALSE;
  *   $drupal_hash_salt = file_get_contents('/home/example/salt.txt');
  *
  */
-$drupal_hash_salt = 'VM4_xIP2_BfYRvgjspJYR6GZ4mQ1HemGDCEADVUnJbk';
+$drupal_hash_salt = 'J6MRxNKt-tJvtF8ZNVMnbAOCOHAUxMd-2ynQMigjpu8';
 
 /**
  * Base URL (optional).
