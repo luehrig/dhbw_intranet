@@ -149,7 +149,7 @@
            $slide3_desc = $record3['body_value'];
            
            
-           // get pictures of selected news
+           // get pictures of selected news and set link to "news"
        	
            $db_query = db_select('field_data_field_image', 'f');
            $db_query->fields('f',array('entity_id', 'field_image_fid'))//SELECT the fields from field_data_field_image
@@ -169,8 +169,8 @@
 			else{
 				$slide1_img = '';	
 			}
-			
-			// get pictures of selected news
+			$slide1_url = "news";
+		
 			
 			$db_query = db_select('field_data_field_image', 'f');
 			$db_query->fields('f',array('entity_id', 'field_image_fid'))//SELECT the fields from field_data_field_image
@@ -190,8 +190,8 @@
 			else{
 				$slide2_img = '';
 			}
+			$slide2_url = "news";
 			
-			// get pictures of selected news
 	
 			$db_query = db_select('field_data_field_image', 'f');
 			$db_query->fields('f',array('entity_id', 'field_image_fid'))//SELECT the fields from field_data_field_image
@@ -211,6 +211,7 @@
 			else{
 				$slide3_img = '';
 			}
+			$slide3_url = "news";
            
 
 //            $slide1_head = check_plain(theme_get_setting('slide1_head','professional_theme'));
