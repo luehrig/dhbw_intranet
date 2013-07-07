@@ -1565,3 +1565,12 @@ ol.search-results { padding-left: 0; }
   box-shadow: 0 0 3px #999999;
 }
 
+
+/* Adressbuch */
+#views-exposed-form-adressbuch-page input {
+	width: 180px;
+}
+
+.view-adressbuch tr[class^=row] td[class^=col] {
+	padding-bottom: 20px;
+}
