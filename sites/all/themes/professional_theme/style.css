@@ -1571,6 +1571,11 @@ ol.search-results { padding-left: 0; }
 	width: 180px;
 }
 
+.view-adressbuch .content a img {
+	box-shadow: none;
+	border-style: none;
+}
+
 .view-adressbuch .field-content {
 	display: inline-block;
 }
