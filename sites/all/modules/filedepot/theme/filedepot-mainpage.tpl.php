@@ -113,18 +113,18 @@
       <div id="filedepottoolbar" class="filedepottoolbar" style="margin-right:0px;padding:5px;display:none;margin-bottom:1px;">
       <div style="float:left;width:250px;height:20px;padding-left:20px;">
       <?php if ($show_newfolder == 'true') { ?>
-        <span id="filedepot_newfolder_link">
+        <!-- <span id="filedepot_newfolder_link">
           <span class="first-child">
             <a class="ctools-use-modal ctools-modal-filedepot-newfolder-dialog-style" href="<?php print url('filedepot/nojs/newfolder'); ?>"><?php print t('New Folder'); ?></a>
           </span>
-        </span>
+        </span>  -->
       <?php } ?>
       <?php if ($show_upload == 'true') { ?>
-        <span id="filedepot_newfile_link">
+        <!--  <span id="filedepot_newfile_link">
           <span class="first-child">
             <a class="ctools-use-modal ctools-modal-filedepot-newfile-dialog-style" href="<?php print url('filedepot/nojs/newfile'); ?>"><?php print t('New File'); ?></a>
           </span>
-        </span>
+        </span>  -->
       <?php } ?>
       </div>
       <?php print $toolbarform ?>
