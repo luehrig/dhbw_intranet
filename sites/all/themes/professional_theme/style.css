@@ -1571,13 +1571,15 @@ ol.search-results { padding-left: 0; }
 	width: 180px;
 }
 
-.view-adressbuch .content a img {
+.view-adressbuch .addressbook-field .user-picture a img {
 	box-shadow: none;
 	border-style: none;
 }
 
 .view-adressbuch .field-content {
 	display: inline-block;
+	color: #FF6600;
+    text-decoration: none;
 }
 
 .view-adressbuch tr[class^=row] td[class^=col] {
