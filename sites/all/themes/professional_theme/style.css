@@ -1571,6 +1571,23 @@ ol.search-results { padding-left: 0; }
 	width: 180px;
 }
 
+.view-adressbuch .field-content {
+	display: inline-block;
+}
+
 .view-adressbuch tr[class^=row] td[class^=col] {
 	padding-bottom: 20px;
+}
+
+.view-adressbuch table {
+	border-style: none;
+	border-bottom: 1px solid #BBBBBB;
+}
+
+.view-adressbuch tr[class^=row] td[class^=col] {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #333333;
+    font-family: "Droid Sans","Helvetica Neue","Nimbus Sans L",sans-serif;
+    font-size: 13px;
+    border-right: none;
 }
