@@ -75,7 +75,7 @@ div.agres_item a{
 .agreservations-calendar th.unittypes {
   color: #fff;
   background-color: #fff;
-  text-align: center;
+  text-align: left;
   margin:0;
 }
 
@@ -94,7 +94,7 @@ div.agres_item a{
 .agreservations-calendar th.categories {
   color: #fff;
   background-color: #fff;
-  text-align: center;
+  text-align: left;
   margin:0;
 }
 
